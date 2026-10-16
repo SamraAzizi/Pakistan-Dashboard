@@ -55,3 +55,29 @@ fig2.update_layout(
 )
 fig2.write_html("charts/insight2.html")
 print("Saved charts/insight2.html")
+
+# ---------------------------------------------------------------
+# CHART 3: Education spend vs population (indexed)
+# ---------------------------------------------------------------
+edu = df['education_spend'].dropna()
+pop_indexed = (df['population'] / df['population'].iloc[0]) * 100
+edu_indexed = (edu / edu.iloc[0]) * 100
+
+fig3 = go.Figure()
+fig3.add_trace(go.Scatter(
+    x=pop_indexed.index, y=pop_indexed,
+    name="Population (1990 = 100)",
+    line=dict(color='green', width=2)
+))
+fig3.add_trace(go.Scatter(
+    x=edu_indexed.index, y=edu_indexed,
+    name="Education Spend (1990 = 100)",
+    line=dict(color='purple', width=2)
+))
+fig3.update_layout(
+    title="Insight 3: Population Grew ~2.5x, Education Spend Barely Moved",
+    xaxis_title="Year",
+    yaxis_title="Index (1990 = 100)",
+)
+fig3.write_html("charts/insight3.html")
+print("Saved charts/insight3.html")
